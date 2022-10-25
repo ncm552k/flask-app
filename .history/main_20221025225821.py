@@ -46,11 +46,11 @@ def token_required(f):
 @app.route("/api/cars", methods=["GET"])
 def get_cars():
     page=int(request.args.get("page"))
-    search=request.args.get("search")
-    if search:
-        search=search.split(' ')
-        search='%'.join(search).lower()
+    search=request.args.get("search").split(' ')
+    search='%'.join(search).lower()
     limit = (page-1)*20
+    print(search)
+    print(limit)
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -63,7 +63,7 @@ def get_cars():
                     LIKE '%{search}%' LIMIT 20 OFFSET {limit}"
             sqlQuery2 = f"SELECT COUNT(ID) as totalPages FROM carinfo\
                     WHERE LOWER(CONCAT(carinfo.HangXe,' ', carinfo.DongXe,' ',carinfo.NamSX))\
-                    LIKE '%{search}%'"
+                    LIKE '%{search}%' LIMIT 20 OFFSET {limit}"
 
         cursor.execute(sqlQuery2)
         pages_num = cursor.fetchone()

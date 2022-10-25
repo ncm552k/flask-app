@@ -46,11 +46,11 @@ def token_required(f):
 @app.route("/api/cars", methods=["GET"])
 def get_cars():
     page=int(request.args.get("page"))
-    search=request.args.get("search")
-    if search:
-        search=search.split(' ')
-        search='%'.join(search).lower()
+    search=request.args.get("search").split(' ')
+    search='%'.join(search).lower()
     limit = (page-1)*20
+    print(search)
+    print(limit)
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)

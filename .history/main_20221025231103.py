@@ -51,6 +51,8 @@ def get_cars():
         search=search.split(' ')
         search='%'.join(search).lower()
     limit = (page-1)*20
+    print(search)
+    print(limit)
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)

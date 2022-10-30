@@ -35,8 +35,8 @@ class Predictor:
         X= pd.DataFrame(mn.fit_transform(X))
         self.minmax_scaler = mn 
 
-        # print(X)
-        # print(y)
+        print(X)
+        print(y)
         _model=RandomForestRegressor()
         _model.fit(X,y)
         self.model = _model

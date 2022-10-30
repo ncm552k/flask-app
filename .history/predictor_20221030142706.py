@@ -1,3 +1,4 @@
+from numpy import min_scalar_type
 from sqlalchemy import create_engine
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder

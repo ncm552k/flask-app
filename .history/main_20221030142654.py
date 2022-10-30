@@ -108,6 +108,7 @@ def add_car():
             bindData = (HinhAnh, HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong, Gia)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
+            model.initModel()
             response = jsonify({"message": "OK"})
             response.status_code = 200
             return response
@@ -118,7 +119,6 @@ def add_car():
     finally:
         cursor.close() 
         conn.close()
-        model.initModel()
         
 
 #cập nhật thông tin xe
@@ -152,6 +152,7 @@ def update_car():
             bindData = (HinhAnh, HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong, Gia, _id)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
+            model.initModel()
             response = jsonify({"message": "OK"})
             response.status_code = 200
             return response
@@ -161,8 +162,7 @@ def update_car():
         print(e)
     finally:
         cursor.close() 
-        conn.close()
-        model.initModel()
+        conn.close() 
 
 
 
@@ -175,6 +175,7 @@ def delete_car(id):
         cursor = conn.cursor()
         cursor.execute("DELETE FROM carinfo WHERE id =%s", id)
         conn.commit()
+        model.initModel()
         response = jsonify({"message":'Car Information deleted successfully!'})
         response.status_code = 200
         return response
@@ -183,7 +184,6 @@ def delete_car(id):
     finally:
         cursor.close() 
         conn.close()
-        model.initModel()
     
 
 

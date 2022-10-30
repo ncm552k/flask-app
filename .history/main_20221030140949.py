@@ -7,7 +7,8 @@ from math import ceil
 from functools import wraps
 import jwt
 from datetime import datetime, timedelta
-from predictor import Predictor
+from predictor import  getDataFrame,predictPrice
+from predictor2 import Predictor
 
 model = Predictor()
 model.initModel()
@@ -79,7 +80,6 @@ def get_cars():
         cursor.close() 
         conn.close() 
 
-
 #thêm thông tin xe mới
 @app.route("/api/add-car", methods=["POST"])
 @token_required
@@ -108,6 +108,7 @@ def add_car():
             bindData = (HinhAnh, HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong, Gia)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
+            model.initModel()
             response = jsonify({"message": "OK"})
             response.status_code = 200
             return response
@@ -118,7 +119,26 @@ def add_car():
     finally:
         cursor.close() 
         conn.close()
+   
+
+#xoá thông tin xe
+@app.route('/api/delete-car/<int:id>', methods=['POST'])
+@token_required
+def delete_car(id):
+	try:
+		conn = mysql.connect()
+		cursor = conn.cursor()
+		cursor.execute("DELETE FROM carinfo WHERE id =%s", id)
+		conn.commit()
         model.initModel()
+		response = jsonify({"message":'Car Information deleted successfully!'})
+		response.status_code = 200
+		return response
+	except Exception as e:
+		print(e)
+	finally:
+		cursor.close() 
+		conn.close()
         
 
 #cập nhật thông tin xe
@@ -152,6 +172,7 @@ def update_car():
             bindData = (HinhAnh, HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong, Gia, _id)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
+            model.initModel()
             response = jsonify({"message": "OK"})
             response.status_code = 200
             return response
@@ -161,30 +182,7 @@ def update_car():
         print(e)
     finally:
         cursor.close() 
-        conn.close()
-        model.initModel()
-
-
-
-#xoá thông tin xe
-@app.route('/api/delete-car/<int:id>', methods=['POST'])
-@token_required
-def delete_car(id):
-    try:
-        conn = mysql.connect()
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM carinfo WHERE id =%s", id)
-        conn.commit()
-        response = jsonify({"message":'Car Information deleted successfully!'})
-        response.status_code = 200
-        return response
-    except Exception as e:
-        print(e)
-    finally:
-        cursor.close() 
-        conn.close()
-        model.initModel()
-    
+        conn.close() 
 
 
 #lấy thông tin các field
@@ -310,8 +308,8 @@ def predict_price():
     
     if HangXe and DongXe and NamSX and XuatXu and KieuDang and SoKm and NgoaiThat and NoiThat and NhienLieu and DongCo and HopSo and DanDong :
         input =[HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong]
-        # data=getDataFrame()
-        res = model.predictPrice(input)
+        data=getDataFrame()
+        res = predictPrice(data,input)
 
         response = jsonify({"price": res})
         response.status_code = 200

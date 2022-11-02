@@ -107,12 +107,11 @@ def add_car():
             bindData = (HinhAnh, HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong, Gia)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
-            model.initModel()
             response = jsonify({"message": "OK"})
             response.status_code = 200
             return response
         else:
-            return showMessage()
+            return showMessage(e)
     except Exception as e:
         print(e)
     finally:
@@ -170,12 +169,11 @@ def update_car():
             bindData = (HinhAnh, HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong, Gia, _id)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
-            model.initModel()
             response = jsonify({"message": "OK"})
             response.status_code = 200
             return response
         else:
-            return showMessage()
+            return showMessage(e)
     except Exception as e:
         print(e)
     finally:
@@ -194,7 +192,6 @@ def delete_car(id):
         cursor = conn.cursor()
         cursor.execute("DELETE FROM carinfo WHERE id =%s", id)
         conn.commit()
-        model.initModel()
         response = jsonify({"message":'Car Information deleted successfully!'})
         response.status_code = 200
         return response
@@ -307,6 +304,17 @@ def get_model_by_brand():
         conn.close() 
 
 
+#update model dự đoán
+@app.route("/api/update-model", methods=["GET"])
+def update_model():
+    try:
+        model.initModel()
+        response = jsonify({"message": "OK"})
+        response.status_code = 200
+        return response
+    except Exception as e:
+        return showMessage(e)
+
 
 
 # Đưa ra giá trị dự đoán
@@ -336,7 +344,7 @@ def predict_price():
         response.status_code = 200
         return response
     else:
-        return showMessage()
+        return showMessage(e)
     
 
 

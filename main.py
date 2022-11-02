@@ -306,6 +306,7 @@ def get_model_by_brand():
 
 #update model dự đoán
 @app.route("/api/update-model", methods=["GET"])
+@token_required
 def update_model():
     try:
         model.initModel()

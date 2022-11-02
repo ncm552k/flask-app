@@ -118,7 +118,25 @@ def add_car():
     finally:
         cursor.close() 
         conn.close()
-        
+
+
+@app.route("/api/get-car-by-id/<int:id>", methods=["GET"])
+@token_required
+def get_car_by_id(id):
+    try:  
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)		
+        sqlQuery = "SELECT * FROM carinfo WHERE ID=%s"        
+        cursor.execute(sqlQuery, id)
+        res = cursor.fetchone()
+        response = jsonify(res)
+        response.status_code = 200
+        return response
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close() 
+        conn.close()
         
 
 #cập nhật thông tin xe

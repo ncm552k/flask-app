@@ -86,6 +86,7 @@ def add_car():
     try:
         body = request.json
         HinhAnh = body['HinhAnh']
+        print("Hinh Anh" + HinhAnh)
         HangXe = body['HangXe']
         DongXe = body['DongXe']
         NamSX = int(body['NamSX'])

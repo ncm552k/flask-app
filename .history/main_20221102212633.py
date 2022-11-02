@@ -177,6 +177,7 @@ def delete_car(id):
         cursor.execute("DELETE FROM carinfo WHERE id =%s", id)
         conn.commit()
         model.initModel()
+
         response = jsonify({"message":'Car Information deleted successfully!'})
         response.status_code = 200
         return response

@@ -100,14 +100,13 @@ def add_car():
         DanDong = body['DanDong']
         Gia = int(body['Gia'])
         
-        if HangXe and DongXe and NamSX and XuatXu and KieuDang and SoKm and NgoaiThat and NoiThat and NhienLieu and DongCo and HopSo and DanDong and Gia:
+        if HinhAnh and HangXe and DongXe and NamSX and XuatXu and KieuDang and SoKm and NgoaiThat and NoiThat and NhienLieu and DongCo and HopSo and DanDong and Gia:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)		
             sqlQuery = "INSERT INTO carinfo VALUES(NULL,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             bindData = (HinhAnh, HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong, Gia)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
-            model.initModel()
             response = jsonify({"message": "OK"})
             response.status_code = 200
             return response
@@ -118,7 +117,7 @@ def add_car():
     finally:
         cursor.close() 
         conn.close()
-        
+        model.initModel()
         
 
 #cập nhật thông tin xe
@@ -143,7 +142,7 @@ def update_car():
         DanDong = body['DanDong']
         Gia = int(body['Gia'])
         
-        if _id and HangXe and DongXe and NamSX and XuatXu and KieuDang and SoKm and NgoaiThat and NoiThat and NhienLieu and DongCo and HopSo and DanDong and Gia:
+        if _id and HinhAnh and HangXe and DongXe and NamSX and XuatXu and KieuDang and SoKm and NgoaiThat and NoiThat and NhienLieu and DongCo and HopSo and DanDong and Gia:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)		
             sqlQuery = "UPDATE carinfo SET HinhAnh=%s, HangXe=%s, DongXe=%s, NamSX=%s,\
@@ -152,7 +151,6 @@ def update_car():
             bindData = (HinhAnh, HangXe, DongXe, NamSX, XuatXu, KieuDang, SoKm, NgoaiThat, NoiThat, NhienLieu, DongCo, HopSo, DanDong, Gia, _id)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
-            model.initModel()
             response = jsonify({"message": "OK"})
             response.status_code = 200
             return response
@@ -163,7 +161,7 @@ def update_car():
     finally:
         cursor.close() 
         conn.close()
-        
+        model.initModel()
 
 
 
@@ -176,7 +174,6 @@ def delete_car(id):
         cursor = conn.cursor()
         cursor.execute("DELETE FROM carinfo WHERE id =%s", id)
         conn.commit()
-        model.initModel()
         response = jsonify({"message":'Car Information deleted successfully!'})
         response.status_code = 200
         return response
@@ -185,6 +182,7 @@ def delete_car(id):
     finally:
         cursor.close() 
         conn.close()
+        model.initModel()
     
 
 

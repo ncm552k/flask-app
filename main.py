@@ -262,35 +262,43 @@ def get_field_info():
         res =[
             {
                 "label": "Hãng xe",
-                "data": HangXe
+                "data": HangXe,
+                "key": "HangXe"
             },
             {
                 "label": "Xuất xứ",
-                "data": XuatXu
+                "data": XuatXu,
+                "key":"XuatXu"
             },
             {
                 "label": "Kiểu dáng",
-                "data": KieuDang
+                "data": KieuDang,
+                "key": "KieuDang"
             },
             {
                 "label": "Ngoại thất",
-                "data": NgoaiThat
+                "data": NgoaiThat,
+                "key": "NgoaiThat"
             },
             {
                 "label": "Nội thất",
-                "data": NoiThat
+                "data": NoiThat,
+                "key": "NoiThat"
             },
             {
                 "label": "Nhiên liệu",
-                "data": NhienLieu
+                "data": NhienLieu,
+                "key":"NhienLieu"
             },
             {
                 "label": "Hộp số",
-                "data": HopSo
+                "data": HopSo,
+                "key":"HopSo"
             },
             {
                 "label": "Dẫn động",
-                "data": DanDong
+                "data": DanDong,
+                "key": "DanDong"
             }
         ]
         response=jsonify(res)
@@ -369,7 +377,7 @@ def predict_price():
         response.status_code = 200
         return response
     else:
-        return showMessage(e)
+        return showMessage()
     
 
 

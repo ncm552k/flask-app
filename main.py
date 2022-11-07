@@ -120,7 +120,6 @@ def add_car():
 
 
 @app.route("/api/get-car-by-id/<int:id>", methods=["GET"])
-@token_required
 def get_car_by_id(id):
     try:  
         conn = mysql.connect()

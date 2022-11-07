@@ -259,16 +259,40 @@ def get_field_info():
         for data in DanDongData:
             DanDong.append(data['DanDong'])
 
-        res ={
-            "HangXe":HangXe,
-            "XuatXu":XuatXu,
-            "KieuDang":KieuDang,
-            "NgoaiThat":NgoaiThat,
-            "NoiThat":NoiThat,
-            "NhienLieu":NhienLieu,
-            "HopSo":HopSo,
-            "DanDong":DanDong,
-        }
+        res =[
+            {
+                "label": "Hãng xe",
+                "data": HangXe
+            },
+            {
+                "label": "Xuất xứ",
+                "data": XuatXu
+            },
+            {
+                "label": "Kiểu dáng",
+                "data": KieuDang
+            },
+            {
+                "label": "Ngoại thất",
+                "data": NgoaiThat
+            },
+            {
+                "label": "Nội thất",
+                "data": NoiThat
+            },
+            {
+                "label": "Nhiên liệu",
+                "data": NhienLieu
+            },
+            {
+                "label": "Hộp số",
+                "data": HopSo
+            },
+            {
+                "label": "Dẫn động",
+                "data": DanDong
+            }
+        ]
         response=jsonify(res)
         response.status_code = 200
         return response

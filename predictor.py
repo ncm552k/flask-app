@@ -57,4 +57,4 @@ class Predictor:
 # model = Predictor()
 # model.initModel()
 # res = model.predictPrice(['Nissan','Navara',2020,'Nhập khẩu','Bán tải / Pickup',41000,'Trắng','Kem','Dầu',2.5,'Số tự động','4WD - Dẫn động 4 bánh'])
-# print(res)
+# print("Kết quả dự đoán: " +str(res))
